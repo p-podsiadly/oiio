@@ -125,7 +125,6 @@ target_include_directories (OpenImageIO
                                 ${OpenCV_INCLUDES}
                             PRIVATE
                                 ${ROBINMAP_INCLUDES}
-                                ${FREETYPE_INCLUDE_DIRS}
                             )
 
 if (NOT BUILD_SHARED_LIBS)
@@ -148,9 +147,9 @@ target_link_libraries (OpenImageIO
             ${CMAKE_DL_LIBS}
         )
 
-        if (FREETYPE_FOUND)
-        target_link_libraries (OpenImageIO PRIVATE ${FREETYPE_LIBRARIES})
-    endif()
+if (TARGET Freetype::Freetype)
+    target_link_libraries (OpenImageIO PRIVATE Freetype::Freetype)
+endif()
 
 if (WIN32)
     target_link_libraries (OpenImageIO PRIVATE psapi)
