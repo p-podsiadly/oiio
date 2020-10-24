@@ -1,34 +1,35 @@
 [requires]
 zlib/1.2.11
-libtiff/4.0.9
+libtiff/4.1.0
 libpng/1.6.37
-openexr/2.4.0
-boost/1.70.0
-libjpeg/9c
-libjpeg-turbo/2.0.2
-giflib/5.1.4
-freetype/2.10.0
+openexr/2.5.3
+boost/1.74.0
+libjpeg/9d
+# libjpeg-turbo/2.0.5
+giflib/5.2.1
+freetype/2.10.2
 #opencv/4.1.1@conan/stable
 openjpeg/2.3.1
-libwebp/1.0.3
-tsl-robin-map/0.6.1@tessil/stable
-tbb/2020.0
+libwebp/1.1.0
+tsl-robin-map/0.6.3
+tbb/2020.2
+opencolorio/1.1.1
+pybind11/2.5.0
+dcmtk/3.6.5
+libsquish/1.15
+fmt/7.0.3
+pugixml/1.10
+libraw/0.20.0
 # To do:
-# opencolorio? not on conan?
-# pybind11/2.4.3 - conan doesn't have this minimum version
-# dcmtk
 # ffmpeg
 # field3d
 # libheif
-# libraw
 # openvdb
 # ptex
 # qt5
-# libsquish
-
 
 [generators]
-cmake
+cmake_find_package
 
 [options]
 #libpng:shared=False

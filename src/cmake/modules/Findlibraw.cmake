@@ -90,3 +90,12 @@ if (LINKSTATIC)
     find_library (LCMS2_LIBRARIES NAMES lcms2)
     set (LibRaw_r_LIBRARIES ${LibRaw_r_LIBRARIES} ${JASPER_LIBRARIES} ${LCMS2_LIBRARIES})
 endif ()
+
+if (NOT TARGET libraw::libraw)
+   add_library (libraw::libraw INTERFACE IMPORTED GLOBAL)
+   set_target_properties (
+      libraw::libraw
+      INTERFACE_INCLUDE_DIRECTORIES "${LibRaw_INCLUDE_DIR}"
+      INTERFACE_LINK_LIBRARIES "${LibRaw_r_LIBRARIES}"
+    )
+endif ()

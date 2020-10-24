@@ -90,6 +90,22 @@ checked_find_package (OpenEXR 2.0 REQUIRED
                       RECOMMEND_MIN 2.2
                       RECOMMEND_MIN_REASON "for DWA compression")
 
+if (TARGET OpenEXR::OpenEXR)
+    # Currently, Conan creates only one target (OpenEXR::OpenEXR):
+    # https://github.com/conan-io/conan-center-index/issues/2219
+    # When using Conan with cmake_find_package generator,
+    # we won't have Imath and IlmImf target. Here, these targets are
+    # created.
+
+    add_library (IlmBase::Imath INTERFACE IMPORTED GLOBAL)
+    target_link_libraries (IlmBase::Imath INTERFACE OpenEXR::OpenEXR)
+
+    add_library (OpenEXR::IlmImf INTERFACE IMPORTED GLOBAL)
+    target_link_libraries (OpenEXR::IlmImf INTERFACE OpenEXR::OpenEXR)
+elseif (MSVC AND NOT LINKSTATIC)
+    add_definitions (-DOPENEXR_DLL) # Is this needed for new versions?
+endif ()
+
 # We use Imath so commonly, may as well include it everywhere.
 link_libraries(IlmBase::Imath)
 
@@ -97,10 +113,6 @@ if (CMAKE_COMPILER_IS_CLANG AND OPENEXR_VERSION VERSION_LESS 2.3)
     # clang C++ >= 11 doesn't like 'register' keyword in old exr headers
     add_compile_options (-Wno-deprecated-register)
 endif ()
-if (MSVC AND NOT LINKSTATIC)
-    add_definitions (-DOPENEXR_DLL) # Is this needed for new versions?
-endif ()
-
 
 # JPEG -- prefer Turbo-JPEG to regular libjpeg
 checked_find_package (JPEGTurbo
@@ -161,7 +173,7 @@ checked_find_package (GIF 4
                       RECOMMEND_MIN 5.0
                       RECOMMEND_MIN_REASON "for stability and thread safety")
 checked_find_package (Libheif 1.3)  # For HEIF/HEIC format
-checked_find_package (LibRaw
+checked_find_package (libraw
                       PRINT LibRaw_r_LIBRARIES
                       RECOMMEND_MIN 0.18
                       RECOMMEND_MIN_REASON "for ACES support and better camera metadata")
