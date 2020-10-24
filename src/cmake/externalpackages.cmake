@@ -89,9 +89,10 @@ checked_find_package (TIFF 3.9 REQUIRED
 checked_find_package (OpenEXR 2.0 REQUIRED
                       RECOMMEND_MIN 2.2
                       RECOMMEND_MIN_REASON "for DWA compression")
+
 # We use Imath so commonly, may as well include it everywhere.
-include_directories ("${OPENEXR_INCLUDES}" "${ILMBASE_INCLUDES}"
-                     "${ILMBASE_INCLUDES}/OpenEXR")
+link_libraries(IlmBase::Imath)
+
 if (CMAKE_COMPILER_IS_CLANG AND OPENEXR_VERSION VERSION_LESS 2.3)
     # clang C++ >= 11 doesn't like 'register' keyword in old exr headers
     add_compile_options (-Wno-deprecated-register)

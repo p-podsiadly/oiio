@@ -9,11 +9,10 @@ add_library (OpenImageIO_Util ${libOpenImageIO_Util_srcs})
 target_include_directories (OpenImageIO_Util
         PUBLIC
             ${CMAKE_INSTALL_FULL_INCLUDEDIR}
-            ${ILMBASE_INCLUDES}
         )
 target_link_libraries (OpenImageIO_Util
         PUBLIC
-            ${ILMBASE_LIBRARIES}
+            IlmBase::Imath
             ${GCC_ATOMIC_LIBRARIES}
         PRIVATE
             ${SANITIZE_LIBRARIES}

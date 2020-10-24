@@ -142,6 +142,27 @@ if (OPENEXR_FOUND)
     set (OPENEXR_INCLUDE_DIR ${OPENEXR_INCLUDE_PATH})
     set (ILMBASE_LIBRARIES ${OPENEXR_IMATH_LIBRARY} ${OPENEXR_IEX_LIBRARY} ${OPENEXR_HALF_LIBRARY} ${OPENEXR_ILMTHREAD_LIBRARY} ${ILMBASE_PTHREADS} CACHE STRING "The libraries needed to use IlmBase")
     set (OPENEXR_LIBRARIES ${OPENEXR_ILMIMF_LIBRARY} ${ILMBASE_LIBRARIES} ${ZLIB_LIBRARIES} CACHE STRING "The libraries needed to use OpenEXR")
+
+    # Create targets
+    # Target names are compatible with those created by OpenEXR's CMake config files
+
+    if (NOT TARGET IlmBase::Imath)
+        add_library (IlmBase::Imath INTERFACE IMPORTED GLOBAL)
+        set_target_properties (
+            IlmBase::Imath PROPERTIES
+            INTERFACE_INCLUDE_DIRECTORIES "${ILMBASE_INCLUDES}"
+            INTERFACE_LINK_LIBRARIES "${ILMBASE_LIBRARIES}"
+        )
+    endif ()
+
+    if (NOT TARGET OpenEXR::IlmImf)
+        add_library (OpenEXR::IlmImf INTERFACE IMPORTED GLOBAL)
+        set_target_properties (
+            OpenEXR::IlmImf PROPERTIES
+            INTERFACE_INCLUDE_DIRECTORIES "${OPENEXR_INCLUDES}"
+            INTERFACE_LINK_LIBRARIES "${OPENEXR_LIBRARIES}"
+        )
+    endif ()
 endif ()
 
 mark_as_advanced(
