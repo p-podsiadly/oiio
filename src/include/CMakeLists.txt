@@ -21,7 +21,7 @@ if (USE_GENERATED_EXPORT_HEADER)
           CUSTOM_CONTENT_FROM_VARIABLE exportextras
           )
     list (REMOVE_ITEM public_headers ${PROJECT_NAME}/export.h)
-    list (APPEND public_headers "${CMAKE_BINARY_DIR}/src/include/export.h")
+    list (APPEND public_headers "${PROJECT_BINARY_DIR}/src/include/export.h")
 endif()
 
 
@@ -36,8 +36,8 @@ set (versionfile oiioversion.h)
 if (VERBOSE)
     message(STATUS "Create ${versionfile} from ${versionfile}.in")
 endif ()
-configure_file (${PROJECT_NAME}/${versionfile}.in "${CMAKE_BINARY_DIR}/include/${PROJECT_NAME}/${versionfile}" @ONLY)
-list (APPEND public_headers "${CMAKE_BINARY_DIR}/include/${PROJECT_NAME}/${versionfile}")
+configure_file (${PROJECT_NAME}/${versionfile}.in "${PROJECT_BINARY_DIR}/include/${PROJECT_NAME}/${versionfile}" @ONLY)
+list (APPEND public_headers "${PROJECT_BINARY_DIR}/include/${PROJECT_NAME}/${versionfile}")
 
 
 install (FILES ${public_headers}
@@ -56,7 +56,7 @@ set (fmt_headers
         ${FMT_INCLUDES}/fmt/ostream.h
         ${FMT_INCLUDES}/fmt/printf.h )
 file (COPY ${fmt_headers}
-      DESTINATION ${CMAKE_BINARY_DIR}/include/OpenImageIO/detail/fmt)
+      DESTINATION ${PROJECT_BINARY_DIR}/include/OpenImageIO/detail/fmt)
 install (FILES ${fmt_headers}
          DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}/detail/fmt
          COMPONENT developer)
@@ -67,7 +67,7 @@ if (NOT USE_EXTERNAL_PUGIXML)
           OpenImageIO/detail/pugixml/pugiconfig.hpp
           OpenImageIO/detail/pugixml/pugixml.cpp)
     file (COPY ${pugixml_headers}
-          DESTINATION ${CMAKE_BINARY_DIR}/include/OpenImageIO/detail/pugixml)
+          DESTINATION ${PROJECT_BINARY_DIR}/include/OpenImageIO/detail/pugixml)
     install (FILES ${pugixml_headers}
              DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}/detail/pugixml
              COMPONENT developer)

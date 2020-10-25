@@ -5,7 +5,7 @@
 if (VERBOSE)
    message (STATUS "Create imagio_pvt.h from imageio_pvt.h.in")
 endif ()
-configure_file (imageio_pvt.h.in "${CMAKE_BINARY_DIR}/include/imageio_pvt.h" @ONLY)
+configure_file (imageio_pvt.h.in "${PROJECT_BINARY_DIR}/include/imageio_pvt.h" @ONLY)
 
 file (GLOB libOpenImageIO_hdrs ../include/OpenImageIO/*.h)
 
